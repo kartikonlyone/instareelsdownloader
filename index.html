@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastVideoSave Pro | 100% Fixed</title>
-    <link rel="icon" href="data:,">
+    <title>FastVideoSave Pro | HD Downloader</title>
     <style>
         :root { --primary: #e1306c; --insta-grad: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        header { background: var(--insta-grad); width: 100%; color: white; padding: 20px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        header { background: var(--insta-grad); width: 100%; color: white; padding: 25px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .container { max-width: 500px; width: 90%; background: white; margin-top: 50px; padding: 35px; border-radius: 24px; box-shadow: 0 12px 40px rgba(0,0,0,0.08); text-align: center; }
-        .input-box { display: flex; border: 2px solid #ddd; border-radius: 14px; overflow: hidden; margin-top: 25px; }
+        .input-box { display: flex; border: 2px solid #ddd; border-radius: 14px; overflow: hidden; margin-top: 25px; transition: 0.3s; }
         input { flex: 1; padding: 18px; border: none; outline: none; font-size: 16px; width: 100%; }
         button#btn { background: var(--primary); color: white; border: none; padding: 0 25px; cursor: pointer; font-weight: bold; }
-        #loader { display: none; margin: 20px auto; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        #loader { display: none; margin: 25px auto; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .result { display: none; margin-top: 35px; padding: 25px; background: #fafafa; border-radius: 20px; border: 1px solid #eee; }
-        .thumb { width: 100%; max-width: 260px; border-radius: 12px; margin-bottom: 20px; }
-        .dl-btn { background: #059669; color: white; padding: 16px 40px; text-decoration: none; border-radius: 12px; display: block; font-weight: bold; font-size: 18px; cursor: pointer; border: none; }
+        .dl-btn { background: #059669; color: white; padding: 16px 40px; text-decoration: none; border-radius: 12px; display: inline-block; font-weight: bold; font-size: 18px; width: 100%; box-sizing: border-box; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -25,32 +23,27 @@
 <header><h1>FastVideoSave Pro</h1></header>
 
 <div class="container">
-    <h2>Reels Downloader</h2>
+    <h2>Instagram Downloader</h2>
     <div class="input-box">
         <input type="text" id="instaLink" placeholder="Paste Public Reel link here...">
-        <button id="btn" onclick="startDownload()">Download</button>
+        <button id="btn" onclick="startDownload()">Fetch</button>
     </div>
-
     <div id="loader"></div>
-
     <div class="result" id="resCard">
-        <img id="preview" class="thumb" src="">
+        <img id="preview" style="width:100%; max-width:250px; border-radius:12px; margin-bottom:20px;" src="">
         <p><strong style="color:#059669;">Video Found! 🎉</strong></p>
-        <button id="finalSave" class="dl-btn">SAVE TO GALLERY</button>
-        <p id="statusMsg" style="font-size:12px; color:#666; margin-top:10px;"></p>
+        <a href="" id="dlLink" class="dl-btn" target="_blank" rel="noreferrer" download>DOWNLOAD NOW</a>
     </div>
 </div>
 
 <script>
-    let masterVideoUrl = "";
-
     async function startDownload() {
         const linkVal = document.getElementById('instaLink').value.trim();
         const btn = document.getElementById('btn');
         const loader = document.getElementById('loader');
         const card = document.getElementById('resCard');
 
-        if(!linkVal) return alert("Bhai, link dalo!");
+        if(!linkVal) return alert("Bhai link toh dalo!");
 
         const KEY = 'aca31a75b6msh557466d454b2104p18dfeajsn57348f5e9cc8';
         const HOST = 'instagram-downloader-download-instagram-stories-videos4.p.rapidapi.com';
@@ -60,47 +53,39 @@
         card.style.display = 'none';
 
         try {
-            const resp = await fetch(`https://${HOST}/convert?url=${encodeURIComponent(linkVal)}`, {
+            // Updated Endpoint
+            const response = await fetch(`https://${HOST}/convert?url=${encodeURIComponent(linkVal)}`, {
                 method: 'GET',
                 headers: { 'x-rapidapi-key': KEY, 'x-rapidapi-host': HOST }
             });
 
-            const data = await resp.json();
-            console.log("Full API Response:", data); // Check console for structure
+            const data = await response.json();
+            console.log("Full Data:", data);
 
-            // --- DEEP SCANNER LOGIC ---
-            function scanForVideo(obj) {
-                for (let key in obj) {
-                    let val = obj[key];
-                    // Agar string hai aur video link lag raha hai
-                    if (typeof val === 'string' && (val.includes('.mp4') || val.includes('video') || val.includes('fbcdn.net'))) {
-                        return val;
-                    }
-                    // Agar array ya object hai, toh uske andar jao
-                    if (typeof val === 'object' && val !== null) {
-                        let found = scanForVideo(val);
-                        if (found) return found;
+            // Deep Scan to find MP4 link
+            function findMp4(obj) {
+                for (let k in obj) {
+                    if (typeof obj[k] === 'string' && (obj[k].includes('.mp4') || obj[k].includes('video'))) return obj[k];
+                    if (typeof obj[k] === 'object' && obj[k] !== null) {
+                        let res = findMp4(obj[k]);
+                        if (res) return res;
                     }
                 }
                 return null;
             }
 
-            masterVideoUrl = scanForVideo(data);
-            let thumb = data.thumbnail || (data.data && data.data[0] ? data.data[0].thumbnail : 'https://via.placeholder.com/250x400?text=Video+Ready');
+            const videoUrl = findMp4(data);
+            const thumbUrl = data.thumbnail || (data.data && data.data[0]?.thumbnail) || 'https://via.placeholder.com/250';
 
-            if (masterVideoUrl) {
-                document.getElementById('preview').src = thumb;
-                document.getElementById('finalSave').onclick = () => {
-                    window.open(masterVideoUrl, '_blank');
-                    document.getElementById('statusMsg').innerText = "Opening video... Click 3 dots to save!";
-                };
+            if (videoUrl) {
+                document.getElementById('preview').src = thumbUrl;
+                document.getElementById('dlLink').href = videoUrl;
                 card.style.display = 'block';
             } else {
-                alert("Bhai, API response de rahi hai par video link nahi mil raha. Check Console!");
+                alert("Nahi mila! Shayad account Private hai.");
             }
-
         } catch (e) {
-            alert("Network Error! Vercel par chalao.");
+            alert("Error! Check your RapidAPI subscription.");
         } finally {
             btn.disabled = false;
             loader.style.display = 'none';
