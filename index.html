@@ -4,22 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FastVideoSave Pro | HD Downloader</title>
-    <link rel="icon" href="data:,">
     <style>
         :root { --primary: #e1306c; --insta-grad: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: #333; }
         header { background: var(--insta-grad); width: 100%; color: white; padding: 25px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .container { max-width: 500px; width: 90%; background: white; margin-top: 50px; padding: 35px; border-radius: 24px; box-shadow: 0 12px 40px rgba(0,0,0,0.08); text-align: center; }
+        .container { max-width: 500px; width: 90%; background: white; margin-top: 40px; padding: 35px; border-radius: 24px; box-shadow: 0 12px 40px rgba(0,0,0,0.08); text-align: center; }
         .input-box { display: flex; border: 2px solid #ddd; border-radius: 14px; overflow: hidden; margin-top: 25px; transition: 0.3s; }
         .input-box:focus-within { border-color: var(--primary); }
         input { flex: 1; padding: 18px; border: none; outline: none; font-size: 16px; width: 100%; }
-        button#btn { background: var(--primary); color: white; border: none; padding: 0 20px; cursor: pointer; font-weight: bold; }
-        #loader { display: none; margin: 20px auto; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+        button#btn { background: var(--primary); color: white; border: none; padding: 0 25px; cursor: pointer; font-weight: bold; font-size: 16px; }
+        button#btn:disabled { background: #ccc; cursor: not-allowed; }
+        #loader { display: none; margin: 25px auto; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .result { display: none; margin-top: 35px; padding: 25px; background: #fafafa; border-radius: 20px; border: 1px solid #eee; }
-        .dl-btn { background: #059669; color: white; padding: 16px 40px; border: none; border-radius: 12px; display: inline-block; font-weight: bold; font-size: 18px; width: 100%; cursor: pointer; transition: 0.3s; }
-        .dl-btn:hover { background: #047857; transform: scale(1.02); }
-        #status { font-size: 12px; color: #e1306c; margin-top: 10px; font-weight: bold; }
+        .result { display: none; margin-top: 30px; padding: 20px; background: #fafafa; border-radius: 20px; border: 1px solid #eee; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .thumb { width: 100%; max-width: 250px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .dl-btn { background: #059669; color: white; padding: 16px; border: none; border-radius: 12px; display: block; font-weight: bold; font-size: 18px; cursor: pointer; width: 100%; transition: 0.3s; text-decoration: none; }
+        .dl-btn:hover { background: #047857; transform: translateY(-2px); }
+        #status { font-size: 12px; color: #e1306c; margin-top: 12px; font-weight: 600; min-height: 18px; }
     </style>
 </head>
 <body>
@@ -28,15 +30,16 @@
 
 <div class="container">
     <h2 style="margin:0;">Instagram Downloader</h2>
+    <p style="color:#666; font-size:14px;">High-Quality Reels & Video Saver</p>
     <div class="input-box">
         <input type="text" id="instaLink" placeholder="Paste Reel link here...">
         <button id="btn" onclick="startDownload()">Fetch</button>
     </div>
     <div id="loader"></div>
     <div class="result" id="resCard">
-        <img id="preview" style="width:100%; max-width:250px; border-radius:12px; margin-bottom:20px;" src="">
-        <p><strong style="color:#059669;">Video Found! 🎉</strong></p>
-        <button id="saveBtn" class="dl-btn">SAVE TO GALLERY</button>
+        <img id="preview" class="thumb" src="">
+        <p><strong style="color:#059669;">Video Ready! 🎉</strong></p>
+        <button id="saveBtn" class="dl-btn">DOWNLOAD MP4</button>
         <p id="status"></p>
     </div>
 </div>
@@ -49,8 +52,9 @@
         const btn = document.getElementById('btn');
         const loader = document.getElementById('loader');
         const card = document.getElementById('resCard');
+        const status = document.getElementById('status');
 
-        if(!linkVal) return alert("Bhai link toh dalo!");
+        if(!linkVal) return alert("Bhai, link dalo!");
 
         const KEY = 'aca31a75b6msh557466d454b2104p18dfeajsn57348f5e9cc8';
         const HOST = 'instagram-downloader-download-instagram-stories-videos4.p.rapidapi.com';
@@ -58,6 +62,7 @@
         btn.disabled = true;
         loader.style.display = 'block';
         card.style.display = 'none';
+        status.innerText = "";
 
         try {
             const response = await fetch(`https://${HOST}/convert?url=${encodeURIComponent(linkVal)}`, {
@@ -66,60 +71,68 @@
             });
 
             const data = await response.json();
-            
-            // Link Scanner
-            function findMp4(obj) {
+            console.log("API Response:", data);
+
+            // Scanner to find the best video link
+            function findBestUrl(obj) {
                 for (let k in obj) {
-                    if (typeof obj[k] === 'string' && (obj[k].includes('.mp4') || obj[k].includes('video') || obj[k].includes('fbcdn'))) return obj[k];
+                    if (typeof obj[k] === 'string' && (obj[k].includes('.mp4') || obj[k].includes('fbcdn'))) return obj[k];
                     if (typeof obj[k] === 'object' && obj[k] !== null) {
-                        let res = findMp4(obj[k]);
+                        let res = findBestUrl(obj[k]);
                         if (res) return res;
                     }
                 }
                 return null;
             }
 
-            finalVideoUrl = findMp4(data);
-            const thumbUrl = data.thumbnail || (data.data && data.data[0]?.thumbnail) || 'https://via.placeholder.com/250';
+            finalVideoUrl = findBestUrl(data);
+            const thumbUrl = data.thumbnail || (data.data && data.data[0]?.thumbnail) || 'https://via.placeholder.com/250x400?text=Video+Ready';
 
             if (finalVideoUrl) {
                 document.getElementById('preview').src = thumbUrl;
                 document.getElementById('saveBtn').onclick = () => forceDownload(finalVideoUrl);
                 card.style.display = 'block';
             } else {
-                alert("Nahi mila! Shayad account Private hai.");
+                alert("Video link nahi mila. Shayad account Private hai!");
             }
         } catch (e) {
-            alert("Error! Check RapidAPI subscription.");
+            alert("Error! RapidAPI subscription check karein.");
         } finally {
             btn.disabled = false;
             loader.style.display = 'none';
         }
     }
 
-    // --- PRO LOGIC TO BYPASS "FILE NOT AVAILABLE" ---
+    // --- FIX: Video Playable Download Logic ---
     async function forceDownload(url) {
         const status = document.getElementById('status');
-        status.innerText = "Downloading to browser memory... ⏳";
+        status.innerText = "Downloading to device... ⏳";
         
         try {
             const resp = await fetch(url);
             const blob = await resp.blob();
-            const blobUrl = window.URL.createObjectURL(blob);
+            
+            // Forcefully set MIME type to video/mp4
+            const videoFile = new Blob([blob], { type: 'video/mp4' });
+            const blobUrl = window.URL.createObjectURL(videoFile);
             
             const a = document.createElement('a');
             a.style.display = 'none';
             a.href = blobUrl;
-            a.download = `FastVideoSave_${Date.now()}.mp4`;
+            a.download = `InstaVideo_${Date.now()}.mp4`; // Ensure .mp4 extension
             document.body.appendChild(a);
             a.click();
             
-            window.URL.revokeObjectURL(blobUrl);
-            status.innerText = "Downloaded Successfully! ✅";
+            setTimeout(() => {
+                window.URL.revokeObjectURL(blobUrl);
+                document.body.removeChild(a);
+                status.innerText = "Downloaded! Check your Gallery. ✅";
+            }, 200);
+
         } catch (err) {
-            console.log("CORS block, opening in new tab...");
+            console.error("Blob failed, falling back to direct link.");
             window.open(url, '_blank');
-            status.innerText = "Direct link opened. Long press to save!";
+            status.innerText = "Redirected! Click 3 dots on video to Save.";
         }
     }
 </script>
