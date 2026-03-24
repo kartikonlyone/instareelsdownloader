@@ -8,8 +8,8 @@
     <meta name="description" content="ReelSaver.net is the fastest tool for Instagram Reels Download. Save IG Reels, Stories, and Videos in HD for free. No login required.">
     <meta name="keywords" content="instagram reels download, ig reels downloader, instagram video download, reel saver">
     
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/174/174855.png" type="image/png">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/174/174855.png">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2589/2589174.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2589/2589174.png">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
@@ -17,23 +17,37 @@
         :root { --primary: #FF385C; --insta-grad: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); --bg-dark: #0f172a; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-dark); color: #f8fafc; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 15px; }
-        header { padding: 30px 0; text-align: center; }
-        h1 { font-weight: 800; font-size: 2.2rem; background: var(--insta-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* --- CUSTOM LOGO DESIGN --- */
+        header { padding: 40px 0; text-align: center; }
+        .logo-wrapper { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
+        .logo-icon { 
+            width: 45px; height: 45px; 
+            background: var(--insta-grad); 
+            border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 20px rgba(253, 29, 29, 0.3);
+        }
+        .logo-icon svg { width: 25px; height: 25px; fill: white; }
+        .logo-text { font-weight: 800; font-size: 2.2rem; background: var(--insta-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
+
         .tabs-container { display: flex; background: rgba(255, 255, 255, 0.05); padding: 4px; border-radius: 14px; margin-bottom: 20px; width: 100%; max-width: 500px; overflow-x: auto; scrollbar-width: none; }
         .tab { flex: 1; padding: 12px 10px; text-align: center; cursor: pointer; border-radius: 10px; font-size: 0.8rem; font-weight: 600; color: #94a3b8; transition: 0.3s; white-space: nowrap; }
         .tab.active { background: var(--primary); color: white; }
+        
         .main-card { width: 100%; max-width: 500px; background: #ffffff; padding: 35px 20px; border-radius: 28px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); color: #1e293b; text-align: center; }
-        .input-wrapper { background: #f1f5f9; border-radius: 16px; padding: 6px; display: flex; margin-top: 15px; }
+        .input-wrapper { background: #f1f5f9; border-radius: 16px; padding: 6px; display: flex; margin-top: 15px; border: 2px solid transparent; transition: 0.3s; }
+        .input-wrapper:focus-within { border-color: var(--primary); background: white; }
         input { flex: 1; background: transparent; border: none; outline: none; padding: 12px; font-size: 1rem; width: 100%; }
         button#btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+        
         .result-area { display: none; margin-top: 25px; animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         #preview { width: 100%; border-radius: 16px; margin-bottom: 15px; max-height: 350px; object-fit: contain; background: #000; }
         .dl-btn { background: #0f172a; color: white; padding: 18px; border-radius: 14px; display: block; font-weight: 700; text-align: center; text-decoration: none; width: 100%; }
         
-        /* SEO Content Updated (Fixes Low Word Count & Bold Tags) */
         .seo-section { width: 100%; max-width: 600px; margin-top: 50px; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; }
         .seo-section h2 { color: #f8fafc; margin-bottom: 15px; font-size: 1.4rem; }
-        .seo-section p { margin-bottom: 15px; }
         .feature-list { margin: 20px 0; padding-left: 20px; }
         .feature-list li { margin-bottom: 10px; }
         
@@ -44,7 +58,12 @@
 <body>
 
 <header>
-    <h1>ReelSaver.net - Instagram Reels Download</h1>
+    <div class="logo-wrapper">
+        <div class="logo-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        </div>
+        <div class="logo-text">ReelSaver.net</div>
+    </div>
 </header>
 
 <nav class="tabs-container">
@@ -65,15 +84,15 @@
     <div class="result-area" id="resCard">
         <img id="preview" src="" alt="Video Preview">
         <button id="saveBtn" class="dl-btn">DOWNLOAD NOW</button>
-        <p id="status" style="text-align:center; margin-top:12px; font-size:0.8rem; color:var(--primary);"></p>
+        <p id="status" style="text-align:center; margin-top:12px; font-size:0.8rem; color:var(--primary); font-weight: 600;"></p>
     </div>
 </main>
 
 <section class="seo-section">
     <h2>Reliable Instagram Reels Download Service</h2>
-    <p>ReelSaver.net offers a seamless experience for <b>instagram reels download</b>. Our platform is designed to help users save their favorite videos directly from Instagram without any complicated steps. Whether you are looking for a quick reels downloader or a way to archive stories, we have you covered.</p>
+    <p>ReelSaver.net offers a seamless experience for <b>instagram reels download</b>. Our platform is designed to help users save their favorite videos directly from Instagram without any complicated steps.</p>
     
-    <p>Why choose our downloader? We provide high-speed servers to ensure that your <b>video download</b> starts immediately. Unlike other tools, we do not require any registration or private information. Simply paste the URL and enjoy your content offline at any time.</p>
+    <p>Why choose our downloader? We provide high-speed servers to ensure that your <b>video download</b> starts immediately. Unlike other tools, we do not require any registration or private information.</p>
     
     <h2>Key Features of Our Tool:</h2>
     <ul class="feature-list">
@@ -84,7 +103,7 @@
     </ul>
 
     <h2>Disclaimer and Usage:</h2>
-    <p>This tool is intended for personal use only. We encourage users to respect the intellectual property rights of content creators. Please do not use this service to download copyrighted material without permission. ReelSaver.net is not affiliated with Instagram or Meta.</p>
+    <p>This tool is intended for personal use only. We encourage users to respect the intellectual property rights of content creators. ReelSaver.net is not affiliated with Instagram or Meta.</p>
 </section>
 
 <footer>
@@ -95,7 +114,6 @@
         <a href="contact.html">Contact Us</a>
     </div>
     <p style="margin-top:15px;">&copy; 2026 ReelSaver.net • Fast HD Downloader • Built for Kartik</p>
-    <p style="font-size: 10px; margin-top: 5px;">Visit <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a> for more content.</p>
 </footer>
 
 <script>
@@ -148,7 +166,7 @@
 
     async function forceDownload(url) {
         const status = document.getElementById('status');
-        status.innerText = "Downloading... ⏳";
+        status.innerText = "Downloading to device... ⏳";
         try {
             const resp = await fetch(url);
             const blob = await resp.blob();
