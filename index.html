@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FastVideoSave Pro | Multi-Downloader</title>
+    <title>FastVideoSave Pro | HD Downloader</title>
     <link rel="icon" href="data:,">
     <style>
         :root { --primary: #e1306c; --insta-grad: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -24,8 +24,9 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .thumb { width: 100%; max-width: 260px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .dl-btn { background: #059669; color: white; padding: 16px 40px; text-decoration: none; border-radius: 12px; display: inline-block; font-weight: bold; font-size: 18px; transition: 0.3s; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); }
-        .dl-btn:hover { background: #047857; transform: scale(1.03); }
+        .dl-btn { background: #059669; color: white; padding: 16px 40px; text-decoration: none; border-radius: 12px; display: inline-block; font-weight: bold; font-size: 18px; transition: 0.3s; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3); width: 100%; box-sizing: border-box; }
+        .dl-btn:hover { background: #047857; transform: scale(1.02); }
+        .note { font-size: 11px; color: #777; margin-top: 15px; background: #fff3cd; padding: 10px; border-radius: 8px; line-height: 1.4; }
     </style>
 </head>
 <body>
@@ -34,10 +35,10 @@
 
 <div class="container">
     <h2 style="margin:0;">Instagram Downloader</h2>
-    <p style="color:#666; font-size:14px;">Reels, Stories, and Videos in One Click.</p>
+    <p style="color:#666; font-size:14px;">Download Reels, Videos & Stories in HD</p>
     
     <div class="input-box">
-        <input type="text" id="instaLink" placeholder="Paste link here...">
+        <input type="text" id="instaLink" placeholder="Paste Instagram link here...">
         <button id="btn" onclick="startDownload()">Fetch</button>
     </div>
 
@@ -45,11 +46,11 @@
 
     <div class="result" id="resCard">
         <img id="preview" class="thumb" src="">
-        <p><strong style="color:#059669;">Ready to Download! 🎉</strong></p>
-        <a href="" id="dlLink" class="dl-btn" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer">DOWNLOAD NOW</a>
-        <p style="font-size:11px; color:#999; margin-top:15px; background:#f0f0f0; padding:10px; border-radius:8px;">
-            <b>Bhai Tip:</b> Agar direct download na ho, toh button par **Long Press** karke "Save Link" select karein.
-        </p>
+        <p><strong style="color:#059669;">Video Found! 🎉</strong></p>
+        <a href="" id="dlLink" class="dl-btn" target="_blank" rel="noreferrer" referrerpolicy="no-referrer" download>DOWNLOAD VIDEO</a>
+        <div class="note">
+            <b>Bhai Tip:</b> Agar direct download na ho, toh button par <b>Long Press</b> karke <b>"Download Link"</b> select karein. Login nahi maangega.
+        </div>
     </div>
 </div>
 
@@ -60,9 +61,8 @@
         const loader = document.getElementById('loader');
         const card = document.getElementById('resCard');
 
-        if(!linkVal) return alert("Bhai, link toh dalo!");
+        if(!linkVal) return alert("Bhai, pehle link toh dalo!");
 
-        // --- APKI NAYI API DETAILS (Verified from cURL) ---
         const KEY = 'aca31a75b6msh557466d454b2104p18dfeajsn57348f5e9cc8';
         const HOST = 'instagram-downloader-download-instagram-stories-videos4.p.rapidapi.com';
 
@@ -79,30 +79,43 @@
                 }
             });
 
-            if (response.status === 403) {
-                alert("Error 403: Bhai, is NAYI API ko Dashboard par jaakar 'Subscribe' (Free) karna padega!");
-                return;
+            const data = await response.json();
+            console.log("Asli Data Jo API ne Bheja:", data);
+
+            let videoUrl = "";
+            let thumbUrl = "";
+
+            // --- ADVANCED AUTO-SCANNER ---
+            // Ye function pure JSON me 'url' dhoondega chahe wo kisi bhi naam se ho
+            function deepScan(obj) {
+                for (let key in obj) {
+                    if (typeof obj[key] === 'string' && (obj[key].includes('.mp4') || obj[key].includes('video') || obj[key].includes('fbcdn'))) {
+                        return obj[key];
+                    }
+                    if (typeof obj[key] === 'object' && obj[key] !== null) {
+                        let found = deepScan(obj[key]);
+                        if (found) return found;
+                    }
+                }
+                return null;
             }
 
-            const data = await response.json();
-            console.log("API Result:", data);
-
-            // Is API ka data structure handle karna
-            // Ye API aksar 'url' field ya 'data' array ke andar link bhejti h
-            const videoUrl = data.url || (data.data && data.data[0] && data.data[0].url) || (data.result && data.result[0] && result[0].url);
-            const thumbUrl = data.thumbnail || (data.data && data.data[0] && data.data[0].thumbnail) || 'https://via.placeholder.com/250x400';
+            videoUrl = deepScan(data);
+            
+            // Thumbnail Scan
+            thumbUrl = data.thumbnail || (data.data && data.data[0] ? data.data[0].thumbnail : null) || 'https://via.placeholder.com/250x400?text=Video+Ready';
 
             if (videoUrl) {
                 document.getElementById('preview').src = thumbUrl;
                 document.getElementById('dlLink').href = videoUrl;
                 card.style.display = 'block';
             } else {
-                alert("Nahi mila! Shayad account Private hai ya link galat hai.");
+                alert("Nahi mila! Console (F12) check karo ki API ne kya bheja hai.");
             }
 
         } catch (e) {
-            console.error(e);
-            alert("Network Error! Ise Vercel par host karke hi chalao.");
+            console.error("Fetch Error:", e);
+            alert("Network Error! Ise Vercel par host karke chalao.");
         } finally {
             btn.disabled = false;
             loader.style.display = 'none';
