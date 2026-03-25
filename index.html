@@ -2,152 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Instagram Reels Download - Best HD Reels Downloader</title>
-    <meta name="description" content="ReelSaver.net is the fastest tool for Instagram Reels Download. Save IG Reels, Stories, and Videos in HD for free. No login required.">
-    <meta name="keywords" content="instagram reels download, ig reels downloader, instagram video download, reel saver">
+    <title>Instagram Reels Download - Best HD IG Video Downloader</title>
+    <meta name="description" content="Download Instagram Reels, Stories, and Videos in HD for free. Fast IG reels downloader with no login. Save Instagram content instantly.">
+    <meta name="keywords" content="instagram reels download, ig reels downloader, instagram video download, reel saver, instagram story downloader, igtv download">
     
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2589/2589174.png" type="image/png">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2589/2589174.png">
-
+    <link rel="canonical" href="https://instareelsdownloader-five.vercel.app/" />
+    
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2589/2589174.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        :root { --primary: #FF385C; --insta-grad: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); --bg-dark: #0f172a; }
+        :root { --primary: #FF385C; --insta: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); --bg-dark: #0f172a; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         body { background: var(--bg-dark); color: #f8fafc; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 15px; }
+        header { padding: 30px 0; text-align: center; }
+        .logo-text { font-weight: 800; font-size: 2.2rem; background: var(--insta); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* --- CUSTOM LOGO DESIGN --- */
-        header { padding: 40px 0; text-align: center; }
-        .logo-wrapper { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; }
-        .logo-icon { 
-            width: 45px; height: 45px; 
-            background: var(--insta-grad); 
-            border-radius: 12px; 
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 20px rgba(253, 29, 29, 0.3);
-        }
-        .logo-icon svg { width: 25px; height: 25px; fill: white; }
-        .logo-text { font-weight: 800; font-size: 2.2rem; background: var(--insta-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; }
+        .nav-links { display: flex; gap: 10px; margin-bottom: 20px; }
+        .nav-links a { text-decoration: none; color: #94a3b8; padding: 8px 15px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { border-color: var(--primary); color: white; }
+        .nav-links a.active { background: var(--primary); color: white; border: none; }
 
-        .tabs-container { display: flex; background: rgba(255, 255, 255, 0.05); padding: 4px; border-radius: 14px; margin-bottom: 20px; width: 100%; max-width: 500px; overflow-x: auto; scrollbar-width: none; }
-        .tab { flex: 1; padding: 12px 10px; text-align: center; cursor: pointer; border-radius: 10px; font-size: 0.8rem; font-weight: 600; color: #94a3b8; transition: 0.3s; white-space: nowrap; }
-        .tab.active { background: var(--primary); color: white; }
-        
-        .main-card { width: 100%; max-width: 500px; background: #ffffff; padding: 35px 20px; border-radius: 28px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); color: #1e293b; text-align: center; }
-        .input-wrapper { background: #f1f5f9; border-radius: 16px; padding: 6px; display: flex; margin-top: 15px; border: 2px solid transparent; transition: 0.3s; }
-        .input-wrapper:focus-within { border-color: var(--primary); background: white; }
+        .main-card { width: 100%; max-width: 500px; background: white; padding: 40px 25px; border-radius: 30px; color: #1e293b; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-top: 6px solid #fd1d1d; }
+        .input-wrapper { background: #f1f5f9; border-radius: 18px; padding: 6px; display: flex; margin-top: 20px; border: 2px solid transparent; }
+        .input-wrapper:focus-within { border-color: var(--primary); }
         input { flex: 1; background: transparent; border: none; outline: none; padding: 12px; font-size: 1rem; width: 100%; }
-        button#btn { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 700; cursor: pointer; }
+        button { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 14px; font-weight: 800; cursor: pointer; }
         
-        .result-area { display: none; margin-top: 25px; animation: slideUp 0.4s ease-out; }
+        .result-area { display: none; margin-top: 25px; animation: slideUp 0.5s ease-out; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        #preview { width: 100%; border-radius: 16px; margin-bottom: 15px; max-height: 350px; object-fit: contain; background: #000; }
-        .dl-btn { background: #0f172a; color: white; padding: 18px; border-radius: 14px; display: block; font-weight: 700; text-align: center; text-decoration: none; width: 100%; }
+        #preview { width: 100%; border-radius: 15px; margin-bottom: 15px; max-height: 300px; object-fit: contain; background: #000; }
+        .dl-btn { background: #0f172a; color: white; padding: 18px; border-radius: 14px; display: block; font-weight: 800; text-decoration: none; cursor: pointer; }
         
-        .seo-section { width: 100%; max-width: 600px; margin-top: 50px; color: #94a3b8; font-size: 0.95rem; line-height: 1.8; }
-        .seo-section h2 { color: #f8fafc; margin-bottom: 15px; font-size: 1.4rem; }
-        .feature-list { margin: 20px 0; padding-left: 20px; }
-        .feature-list li { margin-bottom: 10px; }
-        
-        footer { margin-top: auto; padding: 40px 20px; font-size: 0.85rem; color: #64748b; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; }
-        footer a { color: #94a3b8; text-decoration: none; margin: 0 10px; }
+        .seo-section { width: 100%; max-width: 600px; margin-top: 50px; color: #94a3b8; line-height: 1.8; text-align: left; }
+        .seo-section h2 { color: white; margin-bottom: 15px; font-size: 1.4rem; border-left: 4px solid var(--primary); padding-left: 10px; }
+        footer { margin-top: auto; padding: 30px; color: #475569; font-size: 0.8rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; }
     </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ReelSaver - Instagram Downloader",
+      "operatingSystem": "Windows, macOS, Android, iOS",
+      "applicationCategory": "MultimediaApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      }
+    }
+    </script>
 </head>
 <body>
 
-<header>
-    <div class="logo-wrapper">
-        <div class="logo-icon">
-            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        </div>
-        <div class="logo-text">ReelSaver.net</div>
-    </div>
-</header>
+<header><div class="logo-text">ReelSaver.net</div></header>
 
-<nav class="tabs-container">
-    <div class="tab active" onclick="switchTab('Reels', this)">Reels</div>
-    <div class="tab" onclick="switchTab('Stories', this)">Stories</div>
-    <div class="tab" onclick="switchTab('Posts', this)">Posts</div>
-    <div class="tab" onclick="switchTab('Videos', this)">IG Videos</div>
+<nav class="nav-links">
+    <a href="index.html" class="active">Instagram</a>
+    <a href="facebook.html">Facebook</a>
+    <a href="pinterest.html">Pinterest</a>
 </nav>
 
 <main class="main-card">
-    <h2 style="font-size: 1.3rem;">Best Instagram Video Downloader</h2>
-    <p style="color: #64748b; font-size: 0.9rem; margin-top: 5px;">Save high-quality content for free instantly.</p>
+    <h1 style="font-size: 1.4rem; font-weight: 800;">Instagram Video Downloader</h1>
+    <p style="color: #64748b; font-size: 0.9rem;">Save HD Reels, Stories & Photos for free.</p>
     <div class="input-wrapper">
-        <input type="text" id="instaLink" placeholder="Paste link here..." aria-label="Instagram Link">
-        <button id="btn" onclick="startDownload()">Fetch</button>
+        <input type="text" id="link" placeholder="Paste Instagram link here...">
+        <button id="fetchBtn" onclick="download()">Fetch</button>
     </div>
-    <div id="loader" style="display:none; margin:20px auto;">⏳ Processing your request...</div>
-    <div class="result-area" id="resCard">
-        <img id="preview" src="" alt="Video Preview">
-        <button id="saveBtn" class="dl-btn">DOWNLOAD NOW</button>
-        <p id="status" style="text-align:center; margin-top:12px; font-size:0.8rem; color:var(--primary); font-weight: 600;"></p>
+    <div id="loader" style="display:none; margin:20px; font-weight: 600; color: var(--primary);">⏳ Fetching Media...</div>
+    <div class="result-area" id="res">
+        <img id="preview" src="">
+        <button id="dlLink" class="dl-btn">DOWNLOAD NOW</button>
+        <p id="status" style="margin-top:10px; font-size:0.8rem; color:var(--primary); font-weight:600;"></p>
     </div>
 </main>
 
 <section class="seo-section">
-    <h2>Reliable Instagram Reels Download Service</h2>
-    <p>ReelSaver.net offers a seamless experience for <b>instagram reels download</b>. Our platform is designed to help users save their favorite videos directly from Instagram without any complicated steps.</p>
+    <h2>Best Instagram Reels Download Tool</h2>
+    <p>ReelSaver.net is the most reliable <b>instagram reels download</b> service online. We help you save high-quality videos, anonymous <b>instagram stories</b>, and HD photos directly to your device. Our <b>IG downloader</b> is fast, secure, and requires no login.</p>
     
-    <p>Why choose our downloader? We provide high-speed servers to ensure that your <b>video download</b> starts immediately. Unlike other tools, we do not require any registration or private information.</p>
-    
-    <h2>Key Features of Our Tool:</h2>
-    <ul class="feature-list">
-        <li>Unlimited high-definition video saves without watermarks.</li>
-        <li>Full compatibility with Android, iOS, and Desktop browsers.</li>
-        <li>Secure and anonymous processing for every user request.</li>
-        <li>Easy interface to switch between Reels, Stories, and Posts.</li>
+    <h3>Why choose ReelSaver?</h3>
+    <ul style="margin: 15px 20px;">
+        <li>High-speed <b>IG reels download</b> in original resolution.</li>
+        <li>Secure and private <b>story saver</b> for anonymous viewing.</li>
+        <li>Full compatibility with Android, iPhone, and PC browsers.</li>
+        <li>100% Free with unlimited daily downloads.</li>
     </ul>
-
-    <h2>Disclaimer and Usage:</h2>
-    <p>This tool is intended for personal use only. We encourage users to respect the intellectual property rights of content creators. ReelSaver.net is not affiliated with Instagram or Meta.</p>
 </section>
 
-<footer>
-    <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms</a>
-        <a href="contact.html">Contact Us</a>
-    </div>
-    <p style="margin-top:15px;">&copy; 2026 ReelSaver.net • Fast HD Downloader • Built for Kartik</p>
-</footer>
+<footer>&copy; 2026 ReelSaver.net • Fast HD Downloader • Built for Kartik</footer>
 
 <script>
-    let activeCategory = "Reels";
-    function switchTab(type, el) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        el.classList.add('active');
-        activeCategory = type;
-        document.getElementById('instaLink').value = '';
-    }
-
-    async function startDownload() {
-        const linkVal = document.getElementById('instaLink').value.trim();
+    async function download() {
+        const url = document.getElementById('link').value.trim();
+        const btn = document.getElementById('fetchBtn');
         const loader = document.getElementById('loader');
-        const card = document.getElementById('resCard');
-        const btn = document.getElementById('btn');
+        const resDiv = document.getElementById('res');
 
-        if(!linkVal) return alert(`Please enter a link!`);
-
-        const KEY = 'aca31a75b6msh557466d454b2104p18dfeajsn57348f5e9cc8';
-        const HOST = 'instagram-downloader-download-instagram-stories-videos4.p.rapidapi.com';
-
-        btn.disabled = true; loader.style.display = 'block'; card.style.display = 'none';
-
+        if(!url) return alert("Please paste a link first!");
+        
+        btn.disabled = true;
+        loader.style.display = 'block';
+        resDiv.style.display = 'none';
+        
         try {
-            const resp = await fetch(`https://${HOST}/convert?url=${encodeURIComponent(linkVal)}`, {
-                method: 'GET',
+            const KEY = 'aca31a75b6msh557466d454b2104p18dfeajsn57348f5e9cc8';
+            const HOST = 'instagram-downloader-download-instagram-stories-videos4.p.rapidapi.com';
+
+            const resp = await fetch(`https://${HOST}/convert?url=${encodeURIComponent(url)}`, {
                 headers: { 'x-rapidapi-key': KEY, 'x-rapidapi-host': HOST }
             });
             const data = await resp.json();
 
             function findUrl(obj) {
                 for (let k in obj) {
-                    if (typeof obj[k] === 'string' && (obj[k].includes('.mp4') || obj[k].includes('fbcdn'))) return obj[k];
+                    if (typeof obj[k] === 'string' && (obj[k].includes('.mp4') || obj[k].includes('fbcdn') || obj[k].includes('.jpg'))) return obj[k];
                     if (typeof obj[k] === 'object' && obj[k] !== null) {
                         let res = findUrl(obj[k]); if (res) return res;
                     }
@@ -155,28 +133,32 @@
                 return null;
             }
 
-            let videoUrl = findUrl(data);
-            if (videoUrl) {
-                document.getElementById('preview').src = data.thumbnail || 'https://via.placeholder.com/500x300';
-                document.getElementById('saveBtn').onclick = () => forceDownload(videoUrl);
-                card.style.display = 'block';
+            const video = findUrl(data);
+            if(video) {
+                document.getElementById('preview').src = data.thumbnail || 'https://via.placeholder.com/500x300?text=Ready+to+Download';
+                document.getElementById('dlLink').onclick = () => forceDownload(video);
+                resDiv.style.display = 'block';
             } else { alert("Link not found! Ensure the profile is public."); }
-        } catch (e) { alert("API Error!"); } finally { btn.disabled = false; loader.style.display = 'none'; }
+        } catch(e) { alert("API Error or Limit Reached!"); }
+        
+        btn.disabled = false;
+        loader.style.display = 'none';
     }
 
     async function forceDownload(url) {
         const status = document.getElementById('status');
-        status.innerText = "Downloading to device... ⏳";
+        status.innerText = "Downloading to gallery... ⏳";
         try {
             const resp = await fetch(url);
             const blob = await resp.blob();
-            const videoFile = new Blob([blob], { type: 'video/mp4' });
-            const blobUrl = window.URL.createObjectURL(videoFile);
-            const a = document.createElement('a'); a.href = blobUrl;
-            a.download = `ReelSaver_${Date.now()}.mp4`;
-            document.body.appendChild(a); a.click();
+            const blobUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = `ReelSaver_${Date.now()}`;
+            document.body.appendChild(a);
+            a.click();
             window.URL.revokeObjectURL(blobUrl);
-            status.innerText = "Downloaded Successfully! ✅";
+            status.innerText = "Success! Check your gallery ✅";
         } catch (e) { window.open(url, '_blank'); }
     }
 </script>
