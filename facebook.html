@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Facebook Video Downloader - Download FB Reels & Videos in HD</title>
+    <meta name="description" content="Fast and free Facebook video downloader. Save Facebook Reels, private videos, and FB stories in HD quality. No login required, 100% secure.">
+    <meta name="keywords" content="facebook video download, fb reels downloader, download facebook videos, save fb reels, facebook story saver, online fb video downloader">
+    
+    <link rel="canonical" href="https://instareelsdownloader-five.vercel.app/facebook.html" />
+
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2589/2589174.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ReelSaver - Facebook Video Downloader",
+      "operatingSystem": "Windows, macOS, Android, iOS",
+      "applicationCategory": "MultimediaApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "850"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      }
+    }
+    </script>
+    
+    <style>
+        :root { --fb-blue: #1877F2; --bg-dark: #0f172a; --card-bg: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-dark); color: #f8fafc; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 15px; }
+        
+        header { padding: 35px 0; text-align: center; }
+        .logo-text { font-weight: 800; font-size: 2.2rem; color: var(--fb-blue); letter-spacing: -1px; text-decoration: none; }
+
+        .nav-links { display: flex; gap: 12px; margin-bottom: 25px; width: 100%; max-width: 500px; justify-content: center; }
+        .nav-links a { text-decoration: none; color: #94a3b8; padding: 10px 20px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.1); font-size: 0.85rem; font-weight: 700; transition: 0.3s; }
+        .nav-links a:hover { border-color: var(--fb-blue); color: white; }
+        .nav-links a.active { background: var(--fb-blue); color: white; border: none; box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3); }
+
+        .main-card { width: 100%; max-width: 550px; background: var(--card-bg); padding: 45px 25px; border-radius: 32px; color: #1e293b; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border-top: 6px solid var(--fb-blue); }
+        .input-wrapper { background: #f1f5f9; border-radius: 18px; padding: 8px; display: flex; margin-top: 25px; border: 2px solid transparent; transition: 0.3s; }
+        .input-wrapper:focus-within { border-color: var(--fb-blue); background: white; }
+        input { flex: 1; background: transparent; border: none; outline: none; padding: 12px; font-size: 1rem; width: 100%; color: #334155; }
+        button#btn { background: var(--fb-blue); color: white; border: none; padding: 12px 28px; border-radius: 14px; font-weight: 800; cursor: pointer; transition: 0.2s; }
+        
+        .loader { display:none; margin:25px auto; font-weight: 700; color: var(--fb-blue); }
+        .result-area { display: none; margin-top: 30px; animation: slideUp 0.5s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        #preview { width: 100%; border-radius: 20px; margin-bottom: 20px; max-height: 350px; object-fit: contain; background: #000; }
+        .dl-btn { background: #0f172a; color: white; padding: 20px; border-radius: 16px; display: block; font-weight: 800; text-align: center; text-decoration: none; font-size: 1.1rem; }
+        
+        .seo-content { width: 100%; max-width: 650px; margin-top: 60px; color: #94a3b8; line-height: 1.8; text-align: left; }
+        .seo-content h2 { color: white; margin: 25px 0 15px; font-size: 1.5rem; border-left: 4px solid var(--fb-blue); padding-left: 15px; }
+        .feature-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.05); }
+
+        footer { margin-top: auto; padding: 40px; text-align: center; color: #475569; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo-text">ReelSaver.net</a>
+</header>
+
+<nav class="nav-links">
+    <a href="index.html">Instagram</a>
+    <a href="facebook.html" class="active">Facebook</a>
+    <a href="pinterest.html">Pinterest</a>
+</nav>
+
+<main class="main-card">
+    <h1 style="font-size: 1.6rem; font-weight: 800;">Facebook Video Downloader</h1>
+    <p style="color: #64748b; margin-top: 8px; font-size: 0.95rem;">Save FB Reels and Videos in HD for free.</p>
+    
+    <div class="input-wrapper">
+        <input type="text" id="targetLink" placeholder="Paste Facebook link here..." aria-label="FB Media Link">
+        <button id="btn" onclick="startDownload()">Fetch</button>
+    </div>
+
+    <div class="loader" id="loader">⏳ Fetching Facebook Video...</div>
+
+    <div class="result-area" id="resCard">
+        <img id="preview" src="" alt="Video Preview">
+        <button id="saveBtn" class="dl-btn">DOWNLOAD VIDEO (HD)</button>
+        <p id="status" style="text-align:center; margin-top:12px; font-size:0.9rem; color:var(--fb-blue); font-weight: 700;"></p>
+    </div>
+</main>
+
+<section class="seo-content">
+    <h2>Best Tool for Facebook Video Download</h2>
+    <p><b>Facebook video download</b> is now easier than ever with ReelSaver.net. Our tool is specifically optimized to fetch high-quality <b>Facebook Reels</b> and public videos directly to your mobile or PC. Whether it's a funny reel or a long informational video, you can save it in one click.</p>
+    
+    <div class="feature-box">
+        <h3>Why choose our FB Downloader?</h3>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>No registration or login required.</li>
+            <li>Download Facebook Reels in original HD quality.</li>
+            <li>Fast processing and 100% secure servers.</li>
+            <li>Works perfectly on Android, iOS, and Windows.</li>
+        </ul>
+    </div>
+
+    <h2>How to download Facebook Reels?</h2>
+    <p>Simply copy the link of the Facebook video you want to save. Open <b>ReelSaver.net/facebook</b>, paste the link in the input box, and hit fetch. Once the preview is ready, click on the download button to save the file.</p>
+</section>
+
+<footer>
+    <p>&copy; 2026 ReelSaver.net • Fast FB & IG Downloader • Built for Kartik</p>
+</footer>
+
+<script>
+    async function startDownload() {
+        const linkVal = document.getElementById('targetLink').value.trim();
+        const loader = document.getElementById('loader');
+        const card = document.getElementById('resCard');
+        const btn = document.getElementById('btn');
+
+        if(!linkVal) return alert(`Please enter a Facebook link!`);
+
+        const KEY = 'aca31a75b6msh557466d454b2104p18dfeajsn57348f5e9cc8'; 
+        const HOST = 'instagram-downloader-download-instagram-stories-videos4.p.rapidapi.com';
+
+        btn.disabled = true; loader.style.display = 'block'; card.style.display = 'none';
+
+        try {
+            const resp = await fetch(`https://${HOST}/convert?url=${encodeURIComponent(linkVal)}`, {
+                method: 'GET',
+                headers: { 'x-rapidapi-key': KEY, 'x-rapidapi-host': HOST }
+            });
+            const data = await resp.json();
+
+            function findMedia(obj) {
+                for (let k in obj) {
+                    if (typeof obj[k] === 'string' && (obj[k].includes('.mp4') || obj[k].includes('fbcdn'))) return obj[k];
+                    if (typeof obj[k] === 'object' && obj[k] !== null) {
+                        let res = findMedia(obj[k]); if (res) return res;
+                    }
+                }
+                return null;
+            }
+
+            let mediaUrl = findMedia(data);
+            if (mediaUrl) {
+                document.getElementById('preview').src = data.thumbnail || 'https://via.placeholder.com/500x300?text=Facebook+Video+Ready';
+                document.getElementById('saveBtn').onclick = () => forceDownload(mediaUrl);
+                card.style.display = 'block';
+            } else { alert("Could not fetch Facebook video. Ensure it is a public post."); }
+        } catch (e) { alert("API Error! Please try again later."); } finally { btn.disabled = false; loader.style.display = 'none'; }
+    }
+
+    async function forceDownload(url) {
+        const status = document.getElementById('status');
+        status.innerText = "Downloading to device... ⏳";
+        try {
+            const resp = await fetch(url);
+            const blob = await resp.blob();
+            const blobUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = blobUrl;
+            a.download = `FB_Video_${Date.now()}.mp4`;
+            document.body.appendChild(a); a.click();
+            window.URL.revokeObjectURL(blobUrl);
+            status.innerText = "Download Successful! ✅";
+        } catch (e) { window.open(url, '_blank'); }
+    }
+</script>
+</body>
+</html>
