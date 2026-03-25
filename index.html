@@ -11,6 +11,8 @@
     <link rel="canonical" href="https://instareelsdownloader-five.vercel.app/" />
     
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2589/2589174.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2589/2589174.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
@@ -28,7 +30,7 @@
         .main-card { width: 100%; max-width: 500px; background: white; padding: 40px 25px; border-radius: 30px; color: #1e293b; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-top: 6px solid #fd1d1d; }
         .input-wrapper { background: #f1f5f9; border-radius: 18px; padding: 6px; display: flex; margin-top: 20px; border: 2px solid transparent; }
         .input-wrapper:focus-within { border-color: var(--primary); }
-        input { flex: 1; background: transparent; border: none; outline: none; padding: 12px; font-size: 1rem; width: 100%; }
+        input { flex: 1; background: transparent; border: none; outline: none; padding: 12px; font-size: 1rem; width: 100%; color: #334155; }
         button { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 14px; font-weight: 800; cursor: pointer; }
         
         .result-area { display: none; margin-top: 25px; animation: slideUp 0.5s ease-out; }
@@ -36,9 +38,12 @@
         #preview { width: 100%; border-radius: 15px; margin-bottom: 15px; max-height: 300px; object-fit: contain; background: #000; }
         .dl-btn { background: #0f172a; color: white; padding: 18px; border-radius: 14px; display: block; font-weight: 800; text-decoration: none; cursor: pointer; }
         
-        .seo-section { width: 100%; max-width: 600px; margin-top: 50px; color: #94a3b8; line-height: 1.8; text-align: left; }
-        .seo-section h2 { color: white; margin-bottom: 15px; font-size: 1.4rem; border-left: 4px solid var(--primary); padding-left: 10px; }
+        .seo-section { width: 100%; max-width: 650px; margin-top: 50px; color: #94a3b8; line-height: 1.8; text-align: left; padding-bottom: 40px; }
+        .seo-section h2 { color: white; margin: 25px 0 10px; font-size: 1.4rem; border-left: 4px solid var(--primary); padding-left: 10px; }
+        .seo-section p { margin-bottom: 15px; font-size: 0.95rem; }
+        
         footer { margin-top: auto; padding: 30px; color: #475569; font-size: 0.8rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); width: 100%; }
+        footer a { color: #64748b; text-decoration: none; margin: 0 5px; font-weight: 600; }
     </style>
 
     <script type="application/ld+json">
@@ -72,34 +77,48 @@
 </nav>
 
 <main class="main-card">
-    <h1 style="font-size: 1.4rem; font-weight: 800;">Instagram Video Downloader</h1>
-    <p style="color: #64748b; font-size: 0.9rem;">Save HD Reels, Stories & Photos for free.</p>
+    <h1 style="font-size: 1.5rem; font-weight: 800;">Instagram Video Downloader</h1>
+    <p style="color: #64748b; font-size: 0.9rem; margin-top: 5px;">Save HD Reels, Stories & Photos for free instantly.</p>
     <div class="input-wrapper">
-        <input type="text" id="link" placeholder="Paste Instagram link here...">
+        <input type="text" id="link" placeholder="Paste Instagram link here..." aria-label="Instagram Media Link">
         <button id="fetchBtn" onclick="download()">Fetch</button>
     </div>
     <div id="loader" style="display:none; margin:20px; font-weight: 600; color: var(--primary);">⏳ Fetching Media...</div>
     <div class="result-area" id="res">
-        <img id="preview" src="">
+        <img id="preview" src="" alt="Download Preview">
         <button id="dlLink" class="dl-btn">DOWNLOAD NOW</button>
         <p id="status" style="margin-top:10px; font-size:0.8rem; color:var(--primary); font-weight:600;"></p>
     </div>
 </main>
 
 <section class="seo-section">
-    <h2>Best Instagram Reels Download Tool</h2>
-    <p>ReelSaver.net is the most reliable <b>instagram reels download</b> service online. We help you save high-quality videos, anonymous <b>instagram stories</b>, and HD photos directly to your device. Our <b>IG downloader</b> is fast, secure, and requires no login.</p>
+    <h2>Download Instagram Reels in High Quality (HD)</h2>
+    <p>ReelSaver.net is the ultimate tool for <b>Instagram Reels download</b>. Whether you want to save a trending reel, an inspirational video, or a beautiful photo, our downloader provides a seamless experience. We understand that sometimes you want to keep your favorite IG content offline to watch later or share with friends on other platforms like WhatsApp or Telegram.</p>
     
-    <h3>Why choose ReelSaver?</h3>
+    <h2>Features of our Instagram Video Downloader:</h2>
     <ul style="margin: 15px 20px;">
-        <li>High-speed <b>IG reels download</b> in original resolution.</li>
-        <li>Secure and private <b>story saver</b> for anonymous viewing.</li>
-        <li>Full compatibility with Android, iPhone, and PC browsers.</li>
-        <li>100% Free with unlimited daily downloads.</li>
+        <li><b>No Watermark:</b> Get clean videos without any distracting logos.</li>
+        <li><b>High Speed:</b> Our servers ensure your <b>IG reels download</b> happens in seconds.</li>
+        <li><b>Anonymous Story Saver:</b> View and download stories without letting the user know.</li>
+        <li><b>Unlimited Access:</b> Unlike other tools, we don't limit your daily downloads.</li>
+        <li><b>Device Compatibility:</b> Works perfectly on Android, iPhone (iOS), and Desktop browsers like Chrome or Safari.</li>
     </ul>
+
+    <h2>How to use ReelSaver for IG Video Download?</h2>
+    <p>Using our tool is as simple as 1-2-3. First, open the Instagram app or website and copy the link of the post you wish to save. Second, visit <b>ReelSaver.net</b> and paste that link into the input field at the top of this page. Finally, click the 'Fetch' button, wait for the preview to generate, and hit 'Download'. Your media will be saved directly to your device's storage in the highest resolution available (1080p or 4K where applicable).</p>
+    
+    <p>We prioritize user safety and privacy. ReelSaver does not store any personal data or track your download history. Enjoy a fast, secure, and 100% free downloading experience today! Our platform is optimized for performance and reliability across all social media networks including Facebook and Pinterest.</p>
 </section>
 
-<footer>&copy; 2026 ReelSaver.net • Fast HD Downloader • Built for Kartik</footer>
+<footer>
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms</a> | 
+        <a href="contact.html">Contact Us</a>
+    </div>
+    <p style="margin-top:15px;">&copy; 2026 ReelSaver.net • Fast HD Downloader • Built for Kartik</p>
+    <p style="margin-top:10px; font-size: 0.7rem;">Supported by <a href="https://www.instagram.com" target="_blank" rel="nofollow">Instagram</a> CDN Technology</p>
+</footer>
 
 <script>
     async function download() {
